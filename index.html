@@ -52,8 +52,13 @@
       width: 100%;
     }
 
-    button:hover {
+    button:hover:enabled {
       background-color: #36006b;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .footer {
@@ -88,17 +93,16 @@
 </head>
 <body>
 
-  <!-- Logo Image -->
-
-  
-<img src="45.png" alt="Podar" class="center"/>
- <style>
+  <!-- Logo -->
+  <img src="45.png" alt="Podar" class="center" />
+  <style>
     img {
-      display: block; /* Ensure block-level behavior */
+      display: block;
       margin-left: auto;
       margin-right: auto;
     }
   </style>
+
   <h1>PTM : Token And Feedback Portal</h1>
 
   <label for="studentName">Student Name:</label>
@@ -125,7 +129,7 @@
     </script>
   </select>
 
-  <button onclick="generateToken()">Generate Token</button>
+  <button onclick="generateToken()" id="tokenButton">Generate Token</button>
 
   <div id="tokenDisplay"></div>
 
@@ -139,14 +143,17 @@
       const name = document.getElementById("studentName").value.trim();
       const grade = document.getElementById("grade").value;
       const section = document.getElementById("section").value;
-
       const tokenDisplay = document.getElementById("tokenDisplay");
-      tokenDisplay.innerText = "";
+      const button = document.getElementById("tokenButton");
 
       if (!name || !grade || !section) {
         alert("Please fill out all fields.");
         return;
       }
+
+      button.disabled = true;
+      button.innerText = "Generating...";
+      tokenDisplay.innerText = "Please wait...";
 
       try {
         const url = 'https://script.google.com/macros/s/AKfycbxXtH_lYggPOVeUwumHKO7s_W7uvObFctf-Rz4dEoHGW0VEa2ESIIcez8xhbyO3swxB/exec';
@@ -157,10 +164,15 @@
         const result = await response.text();
         tokenDisplay.innerText = result;
       } catch (err) {
+        tokenDisplay.innerText = "";
         alert("Something went wrong while generating the token. Please try again.");
         console.error(err);
       }
+
+      button.disabled = false;
+      button.innerText = "Generate Token";
     }
   </script>
+
 </body>
 </html>
