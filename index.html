@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your PTM Companion : Token + Feedback Portal</title>
+
+ <!-- System UI - Cool Podar :D -->
+
   <style>
     body {
       background-color: #f9f6fc;
@@ -132,8 +135,10 @@
   </style>
   <h1>PTM : Token And Feedback Portal</h1>
 
+ <!--  Instructions -->
+
 <div style="background-color: #f0e6f7; border-left: 5px solid #843d8d; padding: 1rem 1.5rem; margin-bottom: 2rem; border-radius: 8px;">
-  <h2 style="color: #843d8d; font-size: 1.1rem;">How to Use This Portal</h2>
+  <h2 style="color: #843d8d; font-size: 1.1rem;">How to Use This Portal?</h2>
   <ol style="padding-left: 1.2rem; color: #333; font-size: 0.95rem;">
     <li>Scan the QR code using your phone camera or any QR scanner app.</li>
     <li>Once this page opens, enter your <strong>Child’s full name</strong> in the box.</li>
@@ -148,10 +153,11 @@
   <p style="margin-top: 1rem; font-style: italic; color: #666;">If you need help, please ask the nearest volunteer. We're here to assist you.</p>
 </div>
 
-
+ <!-- User Input Cutscene -->
   <label for="studentName">Student Name:</label>
   <input type="text" id="studentName" placeholder="Enter student's full name" required />
 
+   <!-- Dropdown List Cutscene (Grade) -->
   <label for="grade">Grade:</label>
   <select id="grade">
     <option value="">-- Select Grade --</option>
@@ -162,6 +168,7 @@
     </script>
   </select>
 
+<!-- Dropdown List Cutscene (Section) -->
 <label for="section">Section:</label>
 <select id="section">
   <option value="">-- Select Section --</option>
@@ -180,12 +187,12 @@
   <option value="Library">Library</option>
 </select>
 
-<!-- 👇 INSERT THIS BELOW VENUE SELECTION -->
+<!-- Please Wait Cutscene -->
 <div id="loading" style="display: none; text-align: center; color: #4b0082; font-weight: bold; margin-top: 10px;">
   ⏳ Please wait... Generating your token...
 </div>
 
-<!-- 👇 KEEP BUTTON BELOW -->
+<!-- Button -->
 <button onclick="generateToken()">Generate Token</button>
 
   <div id="tokenDisplay"></div>
@@ -194,8 +201,9 @@
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSecdKduHBkU6IREIkBZs_42rutRNavSaxnWC61naSYa7TdG_Q/viewform" target="_blank">Submit Feedback (Grade 1 to 4)</a><br>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScI_xbGYv761MxTXXMe5VOacACCLqxgal2Wa4amEnaXFm3gJA/viewform">Submit Feedback (Grade 5 to 12)</a>
   </div>
-<!-- Currently the link used for 5-12 is only till Grade 10 -->
+<!-- Currently the form link used for 5-12 is only till Grade 10 -->
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
   async function generateToken() {
     const name = document.getElementById("studentName").value.trim();
@@ -206,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tokenDisplay = document.getElementById("tokenDisplay");
     const loadingMessage = document.getElementById("loading");
 
+// Alert Message Cutscene
     tokenDisplay.innerText = "";
     loadingMessage.style.display = "block"; // Show loading
 
@@ -215,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+// Google Sheet - Apps Script used
     try {
       const url = 'https://script.google.com/macros/s/AKfycbxXtH_lYggPOVeUwumHKO7s_W7uvObFctf-Rz4dEoHGW0VEa2ESIIcez8xhbyO3swxB/exec';
       const response = await fetch(`${url}?name=${encodeURIComponent(name)}&grade=${encodeURIComponent(grade)}&section=${encodeURIComponent(section)}&venue=${encodeURIComponent(venue)}`);
@@ -224,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await response.text();
       tokenDisplay.innerText = result;
 
-      // 👇 Fade in footer
+      // Fade in footer - Developer's Name
       const footer = document.getElementById("footerCredit");
       footer.style.display = "block";
       setTimeout(() => {
@@ -238,12 +248,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ Attach to window so button can call it
+  // Attach to window so button can call for execcution command cutscene
   window.generateToken = generateToken;
 });
 </script>
 <div id="footerCredit" style="display: none; text-align: center; font-size: 0.8rem; color: #000; margin-top: 3rem; font-style: italic; opacity: 0; transition: opacity 1s ease;">
   Built by-<br>Advik Panda<br>Grade XI-B<br>PIS CBSE Nerul
 </div>
+
+<!-- Alright, I joked with "Cutscene" "UI" and such terms- but it's comments- so pretty chill right? It is just for fun. -->
+<!-- However for professional purposes, I apologise -->
+<!-- Bye -->
 </body>
 </html>
