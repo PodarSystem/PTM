@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your PTM Companion : Token + Feedback Portal</title>
+  <title> PTM Companion : Token + Feedback Portal</title>
+  
+<!-- Systems - UI - COOL PURPLE PODAR :D -->
   <style>
     body {
-      background-color: #f5f3ff;
+      background-color: #f9f6fc;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #2c2c54;
       padding: 2rem;
       max-width: 600px;
       margin: auto;
+      box-shadow: 0 0 20px rgba(132, 61, 141, 0.2);
+      border-radius: 12px;
     }
 
     .logo {
@@ -23,42 +27,46 @@
 
     h1 {
       text-align: center;
-      color: #4b0082;
+      color: #843d8d;
+      margin-bottom: 1.5rem;
     }
 
     label {
       font-weight: bold;
       display: block;
       margin: 1rem 0 0.5rem;
+      color: #843d8d;
     }
 
     input, select {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.6rem;
       font-size: 1rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      transition: border 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #843d8d;
+      outline: none;
     }
 
     button {
-      background-color: #4b0082;
+      background-color: #843d8d;
       color: white;
       border: none;
-      padding: 0.75rem 1rem;
+      padding: 0.75rem;
       font-size: 1rem;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       width: 100%;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover:enabled {
-      background-color: #36006b;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    button:hover {
+      background-color: #6b2d71;
     }
 
     .footer {
@@ -69,16 +77,17 @@
     .footer a {
       display: inline-block;
       margin: 0.5rem 0;
-      color: #4b0082;
+      color: #843d8d;
       font-weight: bold;
       text-decoration: none;
       padding: 0.5rem 1rem;
-      border: 1px solid #4b0082;
-      border-radius: 5px;
+      border: 1px solid #843d8d;
+      border-radius: 6px;
+      transition: all 0.3s ease;
     }
 
     .footer a:hover {
-      background-color: #4b0082;
+      background-color: #843d8d;
       color: white;
     }
 
@@ -86,28 +95,51 @@
       margin-top: 1.5rem;
       font-size: 1.2rem;
       text-align: center;
-      color: #4b0082;
+      color: #843d8d;
       font-weight: bold;
+    }
+
+    #loading {
+      display: none;
+      text-align: center;
+      color: #843d8d;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    #footerCredit {
+      display: none;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #000;
+      margin-top: 3rem;
+      font-style: italic;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
   </style>
 </head>
 <body>
 
-  <!-- Logo -->
-  <img src="45.png" alt="Podar" class="center" />
-  <style>
+  <!-- Cutscene : Logo Image -->
+
+  
+<img src="45.png" alt="Podar" class="center"/>
+ <style>
     img {
-      display: block;
+      display: block; /* block-level behavior */
       margin-left: auto;
       margin-right: auto;
     }
   </style>
-
   <h1>PTM : Token And Feedback Portal</h1>
+
+  <!-- Cutscene : User Input Name -->
 
   <label for="studentName">Student Name:</label>
   <input type="text" id="studentName" placeholder="Enter student's full name" required />
 
+<!-- Cutscene : Dropdown Grade -->
   <label for="grade">Grade:</label>
   <select id="grade">
     <option value="">-- Select Grade --</option>
@@ -118,61 +150,89 @@
     </script>
   </select>
 
-  <label for="section">Section:</label>
-  <select id="section">
-    <option value="">-- Select Section --</option>
-    <script>
-      const sections = ['A', 'B', 'C', 'D', 'E', 'F'];
-      sections.forEach(section => {
-        document.write(`<option value="${section}">${section}</option>`);
-      });
-    </script>
-  </select>
+<!-- Cutscene : Dropdown Section -->
+<label for="section">Section:</label>
+<select id="section">
+  <option value="">-- Select Section --</option>
+  <script>
+    const sections = ['A', 'B', 'C', 'D', 'E', 'F'];
+    sections.forEach(section => {
+      document.write(`<option value="${section}">${section}</option>`);
+    });
+  </script>
+</select>
+<label for="venue">Optional Venue (for subject-specific teacher):</label>
+<select id="venue">
+  <option value="">-- Select Venue (Optional) --</option>
+  <option value="Science Lab">Science Lab</option>
+  <option value="Computer Lab">Computer Lab</option>
+  <option value="Library">Library</option>
+</select>
 
-  <button onclick="generateToken()" id="tokenButton">Generate Token</button>
+<!-- Loading Cutscene -->
+<div id="loading" style="display: none; text-align: center; color: #4b0082; font-weight: bold; margin-top: 10px;">
+  ⏳ Please wait... Generating your token...
+</div>
+
+<!-- Button -->
+<button onclick="generateToken()">Generate Token</button>
 
   <div id="tokenDisplay"></div>
 
   <div class="footer">
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSecdKduHBkU6IREIkBZs_42rutRNavSaxnWC61naSYa7TdG_Q/viewform" target="_blank">Submit Feedback (Grade 1 to 4)</a><br>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdarcTYOIfnDyP-g9kUBJfirCX7B2j-d60lO6Ctc2i75KfIRg/viewform?usp=dialog" target="_blank">Submit Feedback (Grade 5 to 12)</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScI_xbGYv761MxTXXMe5VOacACCLqxgal2Wa4amEnaXFm3gJA/viewform">Submit Feedback (Grade 5 to 12)</a>
   </div>
+<!-- Mission: Currently the link used for 5-12 is only till Grade 10 -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  async function generateToken() {
+    const name = document.getElementById("studentName").value.trim();
+    const grade = document.getElementById("grade").value;
+    const section = document.getElementById("section").value;
+    const venue = document.getElementById("venue").value;
 
-  <script>
-    async function generateToken() {
-      const name = document.getElementById("studentName").value.trim();
-      const grade = document.getElementById("grade").value;
-      const section = document.getElementById("section").value;
-      const tokenDisplay = document.getElementById("tokenDisplay");
-      const button = document.getElementById("tokenButton");
+    const tokenDisplay = document.getElementById("tokenDisplay");
+    const loadingMessage = document.getElementById("loading");
 
-      if (!name || !grade || !section) {
-        alert("Please fill out all fields.");
-        return;
-      }
+    tokenDisplay.innerText = "";
+    loadingMessage.style.display = "block"; // Show loading
 
-      button.disabled = true;
-      button.innerText = "Generating...";
-      tokenDisplay.innerText = "Please wait...";
-
-      try {
-        const url = 'https://script.google.com/macros/s/AKfycbxXtH_lYggPOVeUwumHKO7s_W7uvObFctf-Rz4dEoHGW0VEa2ESIIcez8xhbyO3swxB/exec';
-        const response = await fetch(`${url}?name=${encodeURIComponent(name)}&grade=${encodeURIComponent(grade)}&section=${encodeURIComponent(section)}`);
-
-        if (!response.ok) throw new Error("Request failed.");
-
-        const result = await response.text();
-        tokenDisplay.innerText = result;
-      } catch (err) {
-        tokenDisplay.innerText = "";
-        alert("Something went wrong while generating the token. Please try again.");
-        console.error(err);
-      }
-
-      button.disabled = false;
-      button.innerText = "Generate Token";
+    if (!name || !grade || !section) {
+      alert("Please fill out all fields.");
+      loadingMessage.style.display = "none"; // Hide loading on error
+      return;
     }
-  </script>
 
+    try {
+      const url = 'https://script.google.com/macros/s/AKfycbxXtH_lYggPOVeUwumHKO7s_W7uvObFctf-Rz4dEoHGW0VEa2ESIIcez8xhbyO3swxB/exec';
+      const response = await fetch(`${url}?name=${encodeURIComponent(name)}&grade=${encodeURIComponent(grade)}&section=${encodeURIComponent(section)}&venue=${encodeURIComponent(venue)}`);
+
+      if (!response.ok) throw new Error("Request failed.");
+
+      const result = await response.text();
+      tokenDisplay.innerText = result;
+
+      //  Fade in footer, Developer's name
+      const footer = document.getElementById("footerCredit");
+      footer.style.display = "block";
+      setTimeout(() => {
+        footer.style.opacity = 1;
+      }, 10);
+    } catch (err) {
+      alert("Something went wrong while generating the token. Please try again.");
+      console.error(err);
+    } finally {
+      loadingMessage.style.display = "none"; // Always hide loading
+    }
+  }
+
+  //  Mission: Attach to window - button can call it
+  window.generateToken = generateToken;
+});
+</script>
+<div id="footerCredit" style="display: none; text-align: center; font-size: 0.8rem; color: #000; margin-top: 3rem; font-style: italic; opacity: 0; transition: opacity 1s ease;">
+  Built by-<br>Advik Panda<br>Grade XI-B<br>PIS CBSE Nerul
+</div>
 </body>
 </html>
