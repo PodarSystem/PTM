@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> PTM Companion : Token + Feedback Portal</title>
-  
-<!-- Systems - UI - COOL PURPLE PODAR :D -->
+  <title>Your PTM Companion : Token + Feedback Portal</title>
   <style>
     body {
       background-color: #f9f6fc;
@@ -121,25 +119,39 @@
 </head>
 <body>
 
-  <!-- Cutscene : Logo Image -->
+  <!-- Logo Image -->
 
   
 <img src="45.png" alt="Podar" class="center"/>
  <style>
     img {
-      display: block; /* block-level behavior */
+      display: block; /* Ensure block-level behavior */
       margin-left: auto;
       margin-right: auto;
     }
   </style>
   <h1>PTM : Token And Feedback Portal</h1>
 
-  <!-- Cutscene : User Input Name -->
+<div style="background-color: #f0e6f7; border-left: 5px solid #843d8d; padding: 1rem 1.5rem; margin-bottom: 2rem; border-radius: 8px;">
+  <h2 style="color: #843d8d; font-size: 1.1rem;">How to Use This Portal</h2>
+  <ol style="padding-left: 1.2rem; color: #333; font-size: 0.95rem;">
+    <li>Scan the QR code using your phone camera or any QR scanner app.</li>
+    <li>Once this page opens, enter your <strong>Child’s full name</strong> in the box.</li>
+    <li>Select the <strong>Grade</strong> your child is studying in.</li>
+    <li>Choose the <strong>Section</strong> your child belongs to.</li>
+    <li><em>(Optional)</em> — If you're visiting a subject-specific room like <strong>Science Lab</strong>, <strong>Computer Lab</strong>, or <strong>Library</strong>, you can select it from the dropdown.</li>
+    <li>Click the <strong>“Generate Token”</strong> button.</li>
+    <li>Wait a moment — you will receive a token number on the screen.</li>
+    <li>Show this token number to the <strong>Teacher</strong> present at the venue.</li>
+    <li>After the meet, click on the <strong>Feedback button</strong> below to submit your thoughts about the PTM.</li>
+  </ol>
+  <p style="margin-top: 1rem; font-style: italic; color: #666;">If you need help, please ask the nearest volunteer. We're here to assist you.</p>
+</div>
+
 
   <label for="studentName">Student Name:</label>
   <input type="text" id="studentName" placeholder="Enter student's full name" required />
 
-<!-- Cutscene : Dropdown Grade -->
   <label for="grade">Grade:</label>
   <select id="grade">
     <option value="">-- Select Grade --</option>
@@ -150,7 +162,6 @@
     </script>
   </select>
 
-<!-- Cutscene : Dropdown Section -->
 <label for="section">Section:</label>
 <select id="section">
   <option value="">-- Select Section --</option>
@@ -169,12 +180,12 @@
   <option value="Library">Library</option>
 </select>
 
-<!-- Loading Cutscene -->
+<!-- 👇 INSERT THIS BELOW VENUE SELECTION -->
 <div id="loading" style="display: none; text-align: center; color: #4b0082; font-weight: bold; margin-top: 10px;">
   ⏳ Please wait... Generating your token...
 </div>
 
-<!-- Button -->
+<!-- 👇 KEEP BUTTON BELOW -->
 <button onclick="generateToken()">Generate Token</button>
 
   <div id="tokenDisplay"></div>
@@ -183,7 +194,7 @@
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSecdKduHBkU6IREIkBZs_42rutRNavSaxnWC61naSYa7TdG_Q/viewform" target="_blank">Submit Feedback (Grade 1 to 4)</a><br>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScI_xbGYv761MxTXXMe5VOacACCLqxgal2Wa4amEnaXFm3gJA/viewform">Submit Feedback (Grade 5 to 12)</a>
   </div>
-<!-- Mission: Currently the link used for 5-12 is only till Grade 10 -->
+<!-- Currently the link used for 5-12 is only till Grade 10 -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   async function generateToken() {
@@ -213,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await response.text();
       tokenDisplay.innerText = result;
 
-      //  Fade in footer, Developer's name
+      // 👇 Fade in footer
       const footer = document.getElementById("footerCredit");
       footer.style.display = "block";
       setTimeout(() => {
@@ -227,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //  Mission: Attach to window - button can call it
+  // ✅ Attach to window so button can call it
   window.generateToken = generateToken;
 });
 </script>
